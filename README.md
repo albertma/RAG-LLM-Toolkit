@@ -5,7 +5,7 @@ A toolkit for  developer to test self deploy LLM and RAG performance
 
 eval_model.sh is a shell script to evaluate generate speed.
 
-You can read the sample in logs
+You can read the real logs in logs directory.`
 
 
 ```
