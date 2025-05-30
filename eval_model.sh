@@ -82,15 +82,15 @@ echo "prompt: $prompt" | tee -a "$log_file"
 printf "耗时: %.3f 秒\n" $duration | tee -a "$log_file"
 
 # 统计 token 数和生成速度
-# 提取 response 字段内容
+# 提取 response 字段内容并计算长度
 response_text=$(echo "$body" | grep -o '"response":"[^"]*"' | sed 's/"response":"\(.*\)"/\1/' | sed 's/\\n/ /g')
-token_count=$(echo "$response_text" | wc -w)
+char_count=$(echo -n "$response_text" | wc -c)
 if [ "$duration" != "0" ]; then
-  speed=$(LC_ALL=C echo "$token_count / $duration" | bc -l)
+  speed=$(LC_ALL=C echo "$char_count / $duration" | bc -l)
 else
   speed=0
 fi
-echo "生成字符数: $token_count" | tee -a "$log_file"
+echo "生成字符数: $char_count" | tee -a "$log_file"
 printf "平均生成速度: %.2f 字符/秒\n" $speed | tee -a "$log_file"
 
 exit 0
